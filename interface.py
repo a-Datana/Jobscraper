@@ -3,6 +3,15 @@ from tkinter import messagebox
 import subprocess
 from functools import partial
 
+    # step one erhalte alle jobs und Update die csv (ERWEITERN NIE LÖSCHEN)
+    # step two erhalte alle detail informationen zu bereits gesammelten jobs (duplikate entfernen z.b. anhand von referenz nummern)
+    # step three filter nach "nutzlosen" jobs (z.b. jobs die auf eine fremde website verlinkt sind)
+    # step four sende bewerbung an entsprechender stelle und update die csv
+    # step five profit
+
+y
+
+
 # Funktion für den Scrape-Button eines einzelnen Services
 def scrape_service(service_key, prefix):
     url = entries[service_key].get().strip()  # Entferne führende und nachfolgende Leerzeichen
@@ -39,8 +48,9 @@ root.title("Jobbörsen Scraper")
 
 # Definiere das Layout
 services = [
+
     # Label, service_key, prefix
-    ('Arbeitsagentur', 'arbeitsagentur', 'https://www.arbeitsagentur.de/jobsuche/suche'),
+    ('Arbeitsagentur', 'arbeitsagentur', 'https://www.arbeitsagentur.de/jobsuche/suche'), # scraping step 1 done
     ('Indeed', 'indeed', 'https://www.indeed.de'),
     ('StepStone', 'stepstone', 'https://www.stepstone.de'),
     ('Monster', 'monster', 'https://www.monster.de'),
