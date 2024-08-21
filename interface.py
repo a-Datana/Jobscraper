@@ -5,18 +5,22 @@ from functools import partial
 
 # Funktion für den Scrape-Button eines einzelnen Services
 def scrape_service(service_key, prefix):
-    url = entries[service_key].get()
-    if url.startswith(prefix):
-        if url:
+    url = entries[service_key].get().strip()  # Entferne führende und nachfolgende Leerzeichen
+    if url:
+        if url.startswith(prefix):
             try:
+                # Debugging-Ausgabe
+                print(f"Executing: python scraper/{service_key}_scraper.py {url}")
                 subprocess.run(['python', f'scraper/{service_key}_scraper.py', url], check=True)
                 messagebox.showinfo("Erfolg", f"{service_key.capitalize()} erfolgreich gescraped!")
             except subprocess.CalledProcessError as e:
                 messagebox.showerror("Fehler", f"Fehler beim Ausführen des Skripts für {service_key}: {e}")
-    elif url=="":
-        pass
+        else:
+            messagebox.showerror("Fehler", f"Die URL für {service_key} muss mit '{prefix}' beginnen!")
     else:
-        messagebox.showerror("Fehler", f"Die URL für {service_key} muss mit '{prefix}' beginnen!")
+        messagebox.showinfo("Info", f"Keine URL für {service_key} eingegeben. Überspringe diesen Dienst.")
+
+
 
 # Scraping-Funktion für alle Services
 def scrape_all():
@@ -35,7 +39,8 @@ root.title("Jobbörsen Scraper")
 
 # Definiere das Layout
 services = [
-    ('Arbeitsagentur', 'arbeitsagentur', 'https://www.arbeitsagentur.de/jobsuche/search'),
+    # Label, service_key, prefix
+    ('Arbeitsagentur', 'arbeitsagentur', 'https://www.arbeitsagentur.de/jobsuche/suche'),
     ('Indeed', 'indeed', 'https://www.indeed.de'),
     ('StepStone', 'stepstone', 'https://www.stepstone.de'),
     ('Monster', 'monster', 'https://www.monster.de'),
